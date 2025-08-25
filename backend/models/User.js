@@ -23,6 +23,30 @@ const User = {
       "SELECT id, name, email, gender, hobby, skill_level, short_bio, created_at FROM users";
     db.execute(query, callback);
   },
+
+  getById: (id, callback) => {
+    db.query("SELECT * FROM users WHERE id = ?", [id], callback);
+  },
+
+  update: (id, userData, callback) => {
+    db.query(
+      "UPDATE users SET name = ?, email = ?, gender = ?, hobby = ?, skill_level = ?, short_bio = ? WHERE id = ?",
+      [
+        userData.name,
+        userData.email,
+        userData.gender,
+        userData.hobby,
+        userData.skill_level,
+        userData.short_bio,
+        id,
+      ],
+      callback
+    );
+  },
+
+  delete: (id, callback) => {
+    db.query("DELETE FROM users WHERE id = ?", [id], callback);
+  },
 };
 
 module.exports = User;
